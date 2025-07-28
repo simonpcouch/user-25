@@ -1,0 +1,109 @@
+/*-- scss:defaults --*/
+
+// https://quarto.org/docs/presentations/revealjs/themes.html#saas-variables
+// https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss
+
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;1,500&display=swap');
+
+// Primary colors
+$peach: #f4c19a;
+$purple: #a67ab5;
+$cream: #f9e6b5;
+
+// colors
+$body-bg: white !default;
+$body-color: darken($purple, 30%) !default;
+$link-color: $peach !default;
+
+// headings
+$presentation-heading-font: 'DM Sans', sans-serif !default;
+$presentation-heading-color: darken($purple, 30%) !default;
+
+/*-- scss:rules --*/
+
+// Annotation link
+.annotation-link {
+ position: fixed;
+ top: 10px;
+ right: 10px;
+ font-size: 75px;
+}
+
+// When `#| output-location: column` is set, it is no longer 100% height
+.reveal .column-output-location .column:first-of-type div.sourceCode {
+ height: unset !important;
+}
+
+.reveal .slide blockquote {
+ color: #a1a1a1;
+}
+
+// Change up the color scheme for H1 slides
+.reveal h1 {
+ color: #ffffff;
+ background-color: $purple;
+}
+
+.reveal .slide.level1 .slide-background-content {
+ background-color: $purple;
+}
+
+// Additional colors for code
+$code-bg: lighten($purple, 73%) !default;  // Very light background
+$code-color: darken($purple, 30%) !default;
+$code-block-bg: lighten($purple, 71%) !default;  // Slightly darker than inline code
+
+/*-- scss:rules --*/
+
+// Your existing rules remain the same
+
+// Code chunk styling
+.reveal div.sourceCode {
+ background-color: $code-block-bg;
+ border-radius: 4px;
+ margin-bottom: 1em;
+}
+
+.reveal pre code {
+ background-color: transparent;
+ padding: 0.5em;
+}
+
+// Syntax highlighting colors
+.reveal .sourceCode {
+ .fu {
+   color: $peach;
+ }
+
+ .st {
+   color: darken($purple, 30%);
+ }
+
+ .fl, .dv {
+   color: darken($peach, 10%);
+ }
+
+ .co {
+   color: lighten(darken($purple, 30%), 40%);
+   font-style: italic;
+ }
+
+ .va, .at {
+   color: darken($purple, 35%);
+ }
+
+ .kw {
+   color: $peach;
+   font-weight: 500;
+ }
+
+ .op {
+   color: darken($purple, 30%);
+ }
+
+ .cn {
+   color: darken($purple, 40%);
+ }
+}

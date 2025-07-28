@@ -1,0 +1,170 @@
+[
+  {
+    "objectID": "index.html#example",
+    "href": "index.html#example",
+    "title": "",
+    "section": "Example",
+    "text": "Example"
+  },
+  {
+    "objectID": "index.html#example-1",
+    "href": "index.html#example-1",
+    "title": "",
+    "section": "Example",
+    "text": "Example\n\n\nkey_get(\"HOME\")\n#&gt; [1] \"/Users/simoncouch\"\n\n\n\n\nkey_get(\"IM_A_SILLY_GOOSE\")\n#&gt; Error:\n#&gt; ! Can't find env var `IM_A_SILLY_GOOSE`."
+  },
+  {
+    "objectID": "index.html#how-it-works-1",
+    "href": "index.html#how-it-works-1",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-2",
+    "href": "index.html#how-it-works-2",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-3",
+    "href": "index.html#how-it-works-3",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works"
+  },
+  {
+    "objectID": "index.html#how-it-works-4",
+    "href": "index.html#how-it-works-4",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works"
+  },
+  {
+    "objectID": "index.html#how-it-works-5",
+    "href": "index.html#how-it-works-5",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works"
+  },
+  {
+    "objectID": "index.html#how-it-works-6",
+    "href": "index.html#how-it-works-6",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-7",
+    "href": "index.html#how-it-works-7",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-8",
+    "href": "index.html#how-it-works-8",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nA prompt defines the desired behavior:\n\nTemplating function documentation\nYou are a terse assistant designed to help R package developers quickly template out their function documentation using roxygen2. Given some highlighted function code, return minimal documentation on the function’s parameters and return type. Beyond those two elements, be sparing so as not to describe things you don’t have context for. Respond with only R #' roxygen2 comments—no backticks or newlines around the response, no further commentary.\nFor function parameters in @params, describe each according to their type (e.g. “A numeric vector” or “A single string”) and note if the parameter isn’t required by writing “Optional” if it has a default value. If the parameters have a default enum (e.g. arg = c(\"a\", \"b\", \"c\")), write them out as ‘one of \"a\", \"b\", or \"c\".’ If there are ellipses in the function signature, note what happens to them. If they’re checked with rlang::check_dots_empty() or otherwise, document them as “Currently unused; must be empty.” If the ellipses are passed along to another function, note which function they’re passed to.\nFor the return type in @returns, note any important errors or warnings that might occur and under what conditions. If the output is returned with invisible(output), note that it’s returned “invisibly.”\nHere are some examples:\nGiven:\nkey_get &lt;- function(name, error_call = caller_env()) {\n  val &lt;- Sys.getenv(name)\n  if (!identical(val, \"\")) {\n    val\n  } else {\n    if (is_testing()) {\n      testthat::skip(sprintf(\"%s env var is not configured\", name))\n    } else {\n      cli::cli_abort(\"Can't find env var {.code {name}}.\", call = error_call)\n    }\n  }\n}\nReply with:\n#' Get key\n#'\n#' @description\n#' A short description...\n#' \n#' @param name A single string.\n#' @param error_call A call to mention in error messages. Optional.\n#'\n#' @returns \n#' If found, the value corresponding to the provided `name`. Otherwise,\n#' the function will error.\n#'\n#' @export\nGiven:\nchat_perform &lt;- function(provider,\n                         mode = c(\"value\", \"stream\", \"async-stream\", \"async-value\"),\n                         turns,\n                         tools = list(),\n                         extra_args = list()) {\n\n  mode &lt;- arg_match(mode)\n  stream &lt;- mode %in% c(\"stream\", \"async-stream\")\n\n  req &lt;- chat_request(\n    provider = provider,\n    turns = turns,\n    tools = tools,\n    stream = stream,\n    extra_args = extra_args\n  )\n\n  switch(mode,\n    \"value\" = chat_perform_value(provider, req),\n    \"stream\" = chat_perform_stream(provider, req),\n    \"async-value\" = chat_perform_async_value(provider, req),\n    \"async-stream\" = chat_perform_async_stream(provider, req)\n  )\n}\nReply with:\n#' Perform chat\n#'\n#' @description\n#' A short description...\n#' \n#' @param provider A provider.\n#' @param mode One of `\"value\"`, `\"stream\"`, `\"async-stream\"`, or `\"async-value\"`.\n#' @param turns Turns.\n#' @param tools Optional. A list of tools.\n#' @param extra_args Optional. A list of extra arguments.\n#'\n#' @returns \n#' A result.\n#'\n#' @export\nGiven:\ncheck_args &lt;- function(fn, ...) {\n  rlang::check_dots_empty()\n  arg_names &lt;- names(formals(fn))\n  if (length(arg_names) &lt; 2) {\n    cli::cli_abort(\"Function must have at least two arguments.\", .internal = TRUE)\n  } else if (arg_names[[1]] != \"self\") {\n    cli::cli_abort(\"First argument must be {.arg self}.\", .internal = TRUE)\n  } else if (arg_names[[2]] != \"private\") {\n    cli::cli_abort(\"Second argument must be {.arg private}.\", .internal = TRUE)\n  }\n  invisible(fn)\n}\nReply with:\n#' Check a function's arguments\n#'\n#' @description\n#' A short description...\n#' \n#' @param fn A function.\n#' @param ... Currently unused; must be empty.\n#'\n#' @returns \n#' `fn`, invisibly. The function will instead raise an error if the function\n#' doesn't take first argument `self` and second argument `private`.\n#'\n#' @export\nWhen two functions are supplied, only provide documentation for the first function, only making use of later functions as additional context. For example:\nGiven:\ncheck_args &lt;- function(fn, ...) {\n  rlang::check_dots_empty()\n  arg_names &lt;- names(formals(fn))\n  if (length(arg_names) &lt; 2) {\n    error_less_than_two_args()\n  } else if (arg_names[[1]] != \"self\") {\n    cli::cli_abort(\"First argument must be {.arg self}.\", .internal = TRUE)\n  } else if (arg_names[[2]] != \"private\") {\n    cli::cli_abort(\"Second argument must be {.arg private}.\", .internal = TRUE)\n  }\n  invisible(fn)\n}\n\nerror_less_than_two_args &lt;- function(call = caller_env()) {\n  cli::cli_abort(\"Function must have at least two arguments.\", call = call, .internal = TRUE)\n}\nReply with:\n#' Check a function's arguments\n#'\n#' @description\n#' A short description...\n#' \n#' @param fn A function.\n#' @param ... Currently unused; must be empty.\n#'\n#' @returns \n#' `fn`, invisibly. The function will instead raise an error if the function\n#' doesn't take first argument `self` and second argument `private`.\n#'\n#' @export"
+  },
+  {
+    "objectID": "index.html#how-it-works-9",
+    "href": "index.html#how-it-works-9",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-10",
+    "href": "index.html#how-it-works-10",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-11",
+    "href": "index.html#how-it-works-11",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nIf you’re an ellmer user, writing that out yourself might look like:\n\nlibrary(ellmer)\n\nch &lt;- chat_anthropic(system_prompt = the_prompt_from_last_slide)\n \nch$chat(\"&lt;the selected code&gt;\")\n#&gt; #' The documentation for the selected code.\n#&gt; #' \n#&gt; #' Yada yada yada."
+  },
+  {
+    "objectID": "index.html#how-it-works-12",
+    "href": "index.html#how-it-works-12",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-13",
+    "href": "index.html#how-it-works-13",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works\n\nThe user:\n\n…makes a code selection\n..triggers the addin and selects a helper\n\nThe selected helper is matched up with its prompt\nc(helper_prompt, selection) is sent to the LLM\nThe response is written to the editor using rstudioapi"
+  },
+  {
+    "objectID": "index.html#how-it-works-14",
+    "href": "index.html#how-it-works-14",
+    "title": "",
+    "section": "How it works",
+    "text": "How it works"
+  },
+  {
+    "objectID": "index.html#whats-possible",
+    "href": "index.html#whats-possible",
+    "title": "",
+    "section": "What’s possible",
+    "text": "What’s possible\nThe package ships with helpers for R package development:\n\nTemplating roxygen documentation\nTransitioning erroring code to use the cli package\nTransitioning testthat code to use the 3rd edition"
+  },
+  {
+    "objectID": "index.html#whats-possible-1",
+    "href": "index.html#whats-possible-1",
+    "title": "",
+    "section": "What’s possible",
+    "text": "What’s possible\nAny coding task that:\n\nCan be described in a markdown file\nCan be applied with a code selection as context\n\n\nIn either RStudio or Positron!"
+  },
+  {
+    "objectID": "index.html#choosing-an-llm-1",
+    "href": "index.html#choosing-an-llm-1",
+    "title": "",
+    "section": "Choosing an LLM",
+    "text": "Choosing an LLM\n\nHow much do chore helpers cost to use?\n\nAbout $1 per 100 refactorings with Claude Sonnet 4."
+  },
+  {
+    "objectID": "index.html#choosing-an-llm-2",
+    "href": "index.html#choosing-an-llm-2",
+    "title": "",
+    "section": "Choosing an LLM",
+    "text": "Choosing an LLM\nCheaper models are less performant:\n\n\nhttps://simonpcouch.github.io/choreseval/"
+  },
+  {
+    "objectID": "index.html#choosing-an-llm-3",
+    "href": "index.html#choosing-an-llm-3",
+    "title": "",
+    "section": "Choosing an LLM",
+    "text": "Choosing an LLM\n\nHow about local LLMs?\n\n\nI’m trying! We may not be there quite yet.\n\nhttps://simonpcouch.github.io/choreseval/"
+  },
+  {
+    "objectID": "index.html#choosing-an-llm-4",
+    "href": "index.html#choosing-an-llm-4",
+    "title": "",
+    "section": "Choosing an LLM",
+    "text": "Choosing an LLM\n\n\nhttps://simonpcouch.github.io/choreseval/"
+  },
+  {
+    "objectID": "index.html#choosing-an-llm-5",
+    "href": "index.html#choosing-an-llm-5",
+    "title": "",
+    "section": "Choosing an LLM",
+    "text": "Choosing an LLM\n\nIf privacy is less of a concern (i.e. the code you highlight is not sensitive IP), GitHub hosts many models with generous free tiers.\n\nUse chat_github() with ellmer."
+  },
+  {
+    "objectID": "index.html#learn-more",
+    "href": "index.html#learn-more",
+    "title": "",
+    "section": "Learn more",
+    "text": "Learn more\n\n\n\ngithub.com/simonpcouch/user-25"
+  }
+]
